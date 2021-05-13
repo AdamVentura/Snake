@@ -21,7 +21,7 @@ public int[][] CheckApple()
          	q = dice.nextInt(10);
 		a = dice.nextInt(10);
 		
-		System.out.println(a + " " + q);
+		//System.out.println(a + " " + q);
 		
      } 
      
