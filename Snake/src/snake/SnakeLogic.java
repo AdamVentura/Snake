@@ -8,7 +8,7 @@ class SnakeLogic /**implements KeyListener**/{
 	private int board[][];
 	private int snakelength,playerheadx, playerheady, death;
 	private char moveinput;
-	private int x, y;
+	private int x, y, z;
 	
 	
 	ArrayList<Integer> snaketailx=new <Integer>ArrayList();
@@ -22,18 +22,28 @@ class SnakeLogic /**implements KeyListener**/{
 	public SnakeLogic()
 	{
 		board=new int [10][10];
-		playerheadx=2;
+		playerheadx=3;
 		playerheady=5;
 		death=0;
 		
-		snakelength=3;
-		snaketailx.add(0, )
+		snakelength=4;
+		snaketailx.add(3);
+		snaketaily.add(5);
+		snaketailx.add(2);
+		snaketaily.add(5);
+		snaketailx.add(1);
+		snaketaily.add(5);
+		snaketailx.add(0);
+		snaketaily.add(5);
+		
+		
+		
 	}
 	
 	
 	public void printboard()
 	{
-		board[playerheadx][playerheady]=1;
+		
 		for(y=9;y>=0;y--)
 		{
 			System.out.println();
@@ -47,14 +57,22 @@ class SnakeLogic /**implements KeyListener**/{
 	
 	public int updateboard()
 	{
+		
 		for(y=9;y>=0;y--)
 		{
 			for(x=0;x<10;x++)
 			{
 				board[x][y]=0;
+				for(z=0;z< snaketailx.size(); z++)
+				{
+					board[snaketailx.get(z)][snaketaily.get(z)]=1;
+					
+					
+				}
+			
 				if(playerheadx==x&&playerheady==y)
 				{
-					board[x][y]=1;
+					board[x][y]=2;
 				}
 			}
 		}
@@ -67,17 +85,20 @@ class SnakeLogic /**implements KeyListener**/{
 	public void move()
 	{
 		char moveinput = reader.next().charAt(0);
+		
+		z=snakelength-1;
+		while(z>0)
+		{
+			snaketailx.set(z, snaketailx.get(z-1));
+			snaketaily.set(z, snaketaily.get(z-1));
+			
+			z--;
+		}
 		if(moveinput=='w')
 		{
 			if(playerheady+1<10)
-			{
+			{			
 				playerheady++;
-				
-				
-				
-				
-				
-				
 			}
 			else
 				
@@ -86,8 +107,9 @@ class SnakeLogic /**implements KeyListener**/{
 		if(moveinput=='s')
 		{
 			if(playerheady-1>=0)
-			{
-			playerheady--;
+			{				
+				playerheady--;
+		
 			}
 			else
 				death=1;
@@ -95,7 +117,7 @@ class SnakeLogic /**implements KeyListener**/{
 		if(moveinput=='a')
 		{
 			if(playerheadx-1>=0)
-			{
+			{								
 			playerheadx--;
 			}
 			else
@@ -104,12 +126,15 @@ class SnakeLogic /**implements KeyListener**/{
 		if(moveinput=='d')
 		{
 			if(playerheadx+1<10)
-			{
-			playerheadx++;	
+			{				
+			playerheadx++;		
 			}
 			else
 				death=1;
 		}
+		snaketaily.set(0, playerheady);
+		snaketailx.set(0, playerheadx);
+		
 		
 	}
 
