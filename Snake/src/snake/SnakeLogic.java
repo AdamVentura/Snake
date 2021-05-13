@@ -40,7 +40,7 @@ class SnakeLogic /**implements KeyListener**/{
 	//print out the board array
 	public void printboard()
 	{
-		
+		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
 		for(y=9;y>=0;y--)
 		{
 			System.out.println();
@@ -54,50 +54,47 @@ class SnakeLogic /**implements KeyListener**/{
 	//update the board array
 	public int updateboard()
 	{
-		//for each
+		//for each spot
 		for(y=9;y>=0;y--)
 		{
 			for(x=0;x<10;x++)
 			{
-				board[x][y]=0;
-				for(z=0;z< snaketailx.size(); z++)
+				//set it back to zero to start
+				board[x][y]=0;	
+			}
+		}
+		//for each the entire lenght of the snake
+		for(z=0;z< snaketailx.size(); z++)
 				{
+			//set the the spots that have snake tails to 1
 					board[snaketailx.get(z)][snaketaily.get(z)]=1;
 					
 					
 				}
-			
-				
-			}
-		}
-		for(y=9;y>=0;y--)
-		{
-			for(x=0;x<10;x++)
-			{
-		if(playerheadx==x&&playerheady==y)
-				{
-					board[x][y]=2;
-				}
-		
-		
-			}
-		}
+		//set the player head location to 2
+		board[playerheadx][playerheady]=2;
+		//return the varable death to let main know it died
 		return death;
 	}
 	
 	
 	public void move()
 	{
+		//take in an input of WASD
 		char moveinput = reader.next().charAt(0);
-		
+		//set z to the last spot of the snake tail array
 		z=snakelength-1;
+		//while it is 1 or greater
 		while(z>0)
 		{
+			//set the snake tail cords to the next snake tails cords
 			snaketailx.set(z, snaketailx.get(z-1));
 			snaketaily.set(z, snaketaily.get(z-1));
 			
+			//get closer to the head by 1
 			z--;
 		}
+		//cheack for each of the movment inputs
 		if(moveinput=='w')
 		{
 			if(playerheady+1<10)
