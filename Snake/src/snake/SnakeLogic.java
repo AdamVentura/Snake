@@ -25,22 +25,19 @@ class SnakeLogic /**implements KeyListener**/{
 		playerheadx=3;
 		playerheady=5;
 		death=0;
-		
-		snakelength=4;
+		//starting snake lenght
+		snakelength=3;
+		//make the origanal tail of the snake
 		snaketailx.add(3);
 		snaketaily.add(5);
 		snaketailx.add(2);
 		snaketaily.add(5);
 		snaketailx.add(1);
 		snaketaily.add(5);
-		snaketailx.add(0);
-		snaketaily.add(5);
-		
-		
-		
+								
 	}
 	
-	
+	//print out the board array
 	public void printboard()
 	{
 		
@@ -54,10 +51,10 @@ class SnakeLogic /**implements KeyListener**/{
 		}
 	}
 	
-	
+	//update the board array
 	public int updateboard()
 	{
-		
+		//for each
 		for(y=9;y>=0;y--)
 		{
 			for(x=0;x<10;x++)
@@ -70,15 +67,22 @@ class SnakeLogic /**implements KeyListener**/{
 					
 				}
 			
-				if(playerheadx==x&&playerheady==y)
+				
+			}
+		}
+		for(y=9;y>=0;y--)
+		{
+			for(x=0;x<10;x++)
+			{
+		if(playerheadx==x&&playerheady==y)
 				{
 					board[x][y]=2;
 				}
+		
+		
 			}
 		}
 		return death;
-		
-		
 	}
 	
 	
