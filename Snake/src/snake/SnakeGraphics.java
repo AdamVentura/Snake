@@ -1,17 +1,30 @@
 package src;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import javax.swing.SwingUtilities;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
+import java.util.*;
+
 
 
 public class SnakeGraphics extends JPanel {
 
 	    private static final long serialVersionUID = 7148504528835036003L;
+	    
+	    private int board[][];
+		private int snakelength,playerheadx, playerheady, death;
+		private char moveinput;
+		private int x, y, z;
+		
+		
+		
+		ArrayList<Integer> snaketailx=new <Integer>ArrayList();
+		ArrayList<Integer> snaketaily=new <Integer>ArrayList();
+		
+
+		
+		
+		Scanner reader=new Scanner(System.in);
+		
 
 	    // Runs whenever something needs to be painted
 	    public void paintComponent(Graphics g) {
@@ -60,15 +73,142 @@ public class SnakeGraphics extends JPanel {
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
 		        
+		        
 		        }
+	        }
 	        	}
+	        public SnakeGraphics()
+	    	{
+	    		board=new int [10][10];
+	    		playerheadx=3;
+	    		playerheady=5;
+	    		death=0;
+	    		//starting snake length
+	    		snakelength=3;
+	    		//make the origanal tail of the snake
+	    		snaketailx.add(3);
+	    		snaketaily.add(5);
+	    		snaketailx.add(2);
+	    		snaketaily.add(5);
+	    		snaketailx.add(1);
+	    		snaketaily.add(5);
+	    								
+	    	}
+	    	
+	    	//print out the board array
+	    	public void printboard()
+	    	{
+	    		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
+	    		for(y=9;y>=0;y--)
+	    		{
+	    			System.out.println();
+	    			for(x=0;x<10;x++)
+	    			{
+	    				System.out.print(board[x][y]+" ");
+	    			}
+	    		}
+	    	}
+	    	
+	    	//update the board array
+	    	public int updateboard()
+	    	{
+	    		//for each spot
+	    		for(y=9;y>=0;y--)
+	    		{
+	    			for(x=0;x<10;x++)
+	    			{
+	    				//set it back to zero to start
+	    				board[x][y]=0;	
+	    			}
+	    		}
+	    		//for each the entire lenght of the snake
+	    		for(z=0;z< snaketailx.size(); z++)
+	    				{
+	    			//set the the spots that have snake tails to 1
+	    					board[snaketailx.get(z)][snaketaily.get(z)]=1;
+	    					
+	    					
+	    				}
+	    		//set the player head location to 2
+	    		board[playerheadx][playerheady]=2;
+	    		//return the varable death to let main know it died
+	    		return death;
+	    	}
+	    	
+	    	
+	    	public void move()
+	    	{
+	    		//take in an input of WASD
+	    		char moveinput = reader.next().charAt(0);
+	    		//set z to the last spot of the snake tail array
+	    		z=snakelength-1;
+	    		//while it is 1 or greater
+	    		while(z>0)
+	    		{
+	    			//set the snake tail cords to the next snake tails cords
+	    			snaketailx.set(z, snaketailx.get(z-1));
+	    			snaketaily.set(z, snaketaily.get(z-1));
+	    			
+	    			//get closer to the head by 1
+	    			z--;
+	    		}
+	    		//check for each of the movement inputs
+	    		if(moveinput=='w')
+	    		{
+	    			if(playerheady+1<10)
+	    			{			
+	    				playerheady++;
+	    			}
+	    			else
+	    				
+	    				death=1;
+	    		}
+	    		if(moveinput=='s')
+	    		{
+	    			if(playerheady-1>=0)
+	    			{				
+	    				playerheady--;
+	    		
+	    			}
+	    			else
+	    				death=1;
+	    		}
+	    		if(moveinput=='a')
+	    		{
+	    			if(playerheadx-1>=0)
+	    			{								
+	    			playerheadx--;
+	    			}
+	    			else
+	    				death=1;
+	    		}
+	    		if(moveinput=='d')
+	    		{
+	    			if(playerheadx+1<10)
+	    			{				
+	    			playerheadx++;		
+	    			}
+	    			else
+	    				death=1;
+	    		}
+	    		snaketaily.set(0, playerheady);
+	    		snaketailx.set(0, playerheadx);
 	        }
 
 	    
 	    public static void main(String[] args) {
+	    	// Creates panel object of Snake class
+	    	var panel = new SnakeGraphics();
+			int death=0;
+			Scanner reader=new Scanner(System.in);
+				
+			while(death==0)
+				{
+			death=panel.updateboard();
+			panel.printboard();
+			panel.move();
 	        SwingUtilities.invokeLater(() -> {
-	        	// Creates panel object of Snake class
-	            var panel = new SnakeGraphics();
+	        	
 	            // Creates a JFrame object
 	            var frame = new JFrame("Snake");
 	            // Sets the size of the window
@@ -79,7 +219,9 @@ public class SnakeGraphics extends JPanel {
 	            frame.getContentPane().add(panel, BorderLayout.CENTER);
 	            // Make frame visible
 	            frame.setVisible(true);
+	            
 	        }
 	        );
 	    }
 	}
+}
