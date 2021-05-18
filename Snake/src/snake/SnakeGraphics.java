@@ -11,9 +11,9 @@ public class SnakeGraphics extends JPanel {
 	    private static final long serialVersionUID = 7148504528835036003L;
 	    
 	    private int board[][];
-		private int snakelength,playerheadx, playerheady, death;
+		private int snakelength,playerheadx, playerheady, death,applex, appley, playerdirection;
 		private char moveinput;
-		private int x, y, z;
+		private int x, y, z, q, a;
 		
 		
 		
@@ -23,7 +23,7 @@ public class SnakeGraphics extends JPanel {
 
 		
 		
-		Scanner reader=new Scanner(System.in);
+		
 		
 
 	    // Runs whenever something needs to be painted
@@ -69,6 +69,13 @@ public class SnakeGraphics extends JPanel {
 		        	else {
 		        	g.setColor(Color.GREEN);
 		        	}
+		        	if (board[iCountColumns][iCountRows]==1)
+		        	{
+		        		g.setColor(Color.blue);
+		        		
+		        		
+		        		
+		        	}
 		        
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
@@ -77,7 +84,8 @@ public class SnakeGraphics extends JPanel {
 		        }
 	        }
 	        	}
-	        public SnakeGraphics()
+	
+        public SnakeGraphics()
 	    	{
 	    		board=new int [10][10];
 	    		playerheadx=3;
@@ -92,11 +100,15 @@ public class SnakeGraphics extends JPanel {
 	    		snaketaily.add(5);
 	    		snaketailx.add(1);
 	    		snaketaily.add(5);
+	    		
+	    		applex=7;
+	    		appley=5;
+	    		playerdirection=4;
 	    								
 	    	}
 	    	
 	    	//print out the board array
-	    	public void printboard()
+	    public void printboard()
 	    	{
 	    		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
 	    		for(y=9;y>=0;y--)
@@ -107,10 +119,11 @@ public class SnakeGraphics extends JPanel {
 	    				System.out.print(board[x][y]+" ");
 	    			}
 	    		}
+	    		System.out.println();
 	    	}
 	    	
 	    	//update the board array
-	    	public int updateboard()
+	    public int updateboard()
 	    	{
 	    		//for each spot
 	    		for(y=9;y>=0;y--)
@@ -126,20 +139,51 @@ public class SnakeGraphics extends JPanel {
 	    				{
 	    			//set the the spots that have snake tails to 1
 	    					board[snaketailx.get(z)][snaketaily.get(z)]=1;
-	    					
-	    					
 	    				}
+	    		board[applex][appley]=3;
+	    		if(board[playerheadx][playerheady]==3)
+	    		{
+	    			
+	    			snaketailx.add(snaketailx.get(snakelength-1));
+	    			snaketaily.add(snaketaily.get(snakelength-1));
+	    			snakelength++;	    			
+	    			generateapple();	    				    
+	    		}
+	    		
+	    		
 	    		//set the player head location to 2
 	    		board[playerheadx][playerheady]=2;
 	    		//return the varable death to let main know it died
+	    		
+	    		
 	    		return death;
+	    	}
+
+	    	
+	    public void generateapple()
+	    	{
+	    		do
+	    		{
+	    			Random dice = new Random();
+	    			appley = 0;
+	    			applex = 0;
+	    			
+	    	         	appley = dice.nextInt(10);
+	    			applex = dice.nextInt(10);
+	    					
+	    			
+	    		}while(board[applex][appley]!=0);
+	    		
+	    		
 	    	}
 	    	
 	    	
-	    	public void move()
+	    	
+	    	
+	    public void move()
 	    	{
 	    		//take in an input of WASD
-	    		char moveinput = reader.next().charAt(0);
+	    		
 	    		//set z to the last spot of the snake tail array
 	    		z=snakelength-1;
 	    		//while it is 1 or greater
@@ -153,7 +197,7 @@ public class SnakeGraphics extends JPanel {
 	    			z--;
 	    		}
 	    		//check for each of the movement inputs
-	    		if(moveinput=='w')
+	    		if(playerdirection==1)
 	    		{
 	    			if(playerheady+1<10)
 	    			{			
@@ -163,7 +207,7 @@ public class SnakeGraphics extends JPanel {
 	    				
 	    				death=1;
 	    		}
-	    		if(moveinput=='s')
+	    		if(playerdirection==3)
 	    		{
 	    			if(playerheady-1>=0)
 	    			{				
@@ -173,7 +217,7 @@ public class SnakeGraphics extends JPanel {
 	    			else
 	    				death=1;
 	    		}
-	    		if(moveinput=='a')
+	    		if(playerdirection==2)
 	    		{
 	    			if(playerheadx-1>=0)
 	    			{								
@@ -182,7 +226,7 @@ public class SnakeGraphics extends JPanel {
 	    			else
 	    				death=1;
 	    		}
-	    		if(moveinput=='d')
+	    		if(playerdirection==4)
 	    		{
 	    			if(playerheadx+1<10)
 	    			{				
@@ -196,21 +240,13 @@ public class SnakeGraphics extends JPanel {
 	        }
 
 	    
-	    public static void main(String[] args) {
+	    public static void main(String[] args) throws InterruptedException 
+{
 	    	// Creates panel object of Snake class
-	    	var panel = new SnakeGraphics();
+	    	SnakeGraphics panel = new SnakeGraphics();
 			int death=0;
-			Scanner reader=new Scanner(System.in);
-				
-			while(death==0)
-				{
-			death=panel.updateboard();
-			panel.printboard();
-			panel.move();
-	        SwingUtilities.invokeLater(() -> {
-	        	
-	            // Creates a JFrame object
-	            var frame = new JFrame("Snake");
+			    // Creates a JFrame object
+	            JFrame frame = new JFrame("Snake");
 	            // Sets the size of the window
 	            frame.setSize(506, 532);
 	            // Exit application when window is closed
@@ -219,9 +255,17 @@ public class SnakeGraphics extends JPanel {
 	            frame.getContentPane().add(panel, BorderLayout.CENTER);
 	            // Make frame visible
 	            frame.setVisible(true);
-	            
-	        }
-	        );
+				
+			while(death==0)
+				{
+				Thread.sleep(1000);
+			death=panel.updateboard();
+			panel.printboard();
+			panel.move();
+	       
 	    }
-	}
+	    }
+
+	    
+	    
 }
