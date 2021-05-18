@@ -79,7 +79,15 @@ public class SnakeGraphics extends JPanel {
 		        
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
-		        
+				
+		        if (board[iCountColumns][iCountRows] == 2) {
+		        	g.setColor(Color.blue);
+		        	g.fillOval(iXLocation, iYLocation, 50, 50);
+		        }
+		        if (board[iCountColumns][iCountRows] == 3) {
+		        	g.setColor(Color.red);
+		        	g.fillOval(iXLocation, iYLocation, 35, 35);
+		        }
 		        
 		        }
 	        }
