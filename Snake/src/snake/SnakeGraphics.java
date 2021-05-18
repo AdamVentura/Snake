@@ -1,12 +1,16 @@
 package src;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.*;
 import java.util.*;
 
 
 
-public class SnakeGraphics extends JPanel {
+public class SnakeGraphics extends JPanel implements KeyListener
+{
 
 	    private static final long serialVersionUID = 7148504528835036003L;
 	    
@@ -22,11 +26,33 @@ public class SnakeGraphics extends JPanel {
 		
 
 		
-		
-		
+		//constructor
+		 public SnakeGraphics()
+	    	{
+	    		board=new int [10][10];
+	    		playerheadx=3;
+	    		playerheady=5;
+	    		death=0;
+	    		//starting snake length
+	    		snakelength=3;
+	    		//make the origanal tail of the snake
+	    		snaketailx.add(3);
+	    		snaketaily.add(5);
+	    		snaketailx.add(2);
+	    		snaketaily.add(5);
+	    		snaketailx.add(1);
+	    		snaketaily.add(5);
+	    		
+	    		//make the origanal apple location
+	    		applex=7;
+	    		appley=5;
+	    		//start the player movinf right
+	    		playerdirection=4;
+	    								
+	    	}
 		
 
-	    // Runs whenever something needs to be painted
+	    // Runs whenever something needs to be painted, does all of the grpahics
 	    public void paintComponent(Graphics g) {
 	    	
 	    	// Declare variables
@@ -69,7 +95,6 @@ public class SnakeGraphics extends JPanel {
 		        	else {
 		        	g.setColor(Color.GREEN);
 		        	}
-				// Graphics for snake body
 		        	if (board[iCountColumns][iCountRows]==1)
 		        	{
 		        		g.setColor(Color.blue);
@@ -81,13 +106,10 @@ public class SnakeGraphics extends JPanel {
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
 				
-			 // Graphics for snake head
 		        if (board[iCountColumns][iCountRows] == 2) {
 		        	g.setColor(Color.blue);
 		        	g.fillOval(iXLocation, iYLocation, 50, 50);
 		        }
-			
-			// Graphics for apples
 		        if (board[iCountColumns][iCountRows] == 3) {
 		        	g.setColor(Color.red);
 		        	g.fillOval(iXLocation + 10, iYLocation + 10, 30, 30);
@@ -96,30 +118,7 @@ public class SnakeGraphics extends JPanel {
 		        }
 	        }
 	        	}
-	
-        public SnakeGraphics()
-	    	{
-	    		board=new int [10][10];
-	    		playerheadx=3;
-	    		playerheady=5;
-	    		death=0;
-	    		//starting snake length
-	    		snakelength=3;
-	    		//make the origanal tail of the snake
-	    		snaketailx.add(3);
-	    		snaketaily.add(5);
-	    		snaketailx.add(2);
-	    		snaketaily.add(5);
-	    		snaketailx.add(1);
-	    		snaketaily.add(5);
-	    		
-	    		applex=7;
-	    		appley=5;
-	    		playerdirection=4;
-	    								
-	    	}
-	    	
-	    	//print out the board array
+	    	//print out the board array in the console for trouble shooting
 	    public void printboard()
 	    	{
 	    		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
@@ -171,7 +170,7 @@ public class SnakeGraphics extends JPanel {
 	    		return death;
 	    	}
 
-	    	
+	    	//generate an apple somewhere
 	    public void generateapple()
 	    	{
 	    		do
@@ -191,7 +190,7 @@ public class SnakeGraphics extends JPanel {
 	    	
 	    	
 	    	
-	    	
+	    	//moves the player and their tail
 	    public void move()
 	    	{
 	    		//take in an input of WASD
@@ -251,16 +250,59 @@ public class SnakeGraphics extends JPanel {
 	    		snaketailx.set(0, playerheadx);
 	        }
 
+	    //change the direction that the player is moving
+	    @Override
+		public void keyPressed(KeyEvent arg0)
+		{
+			int key = arg0.getKeyCode();
+			
+			if(key==KeyEvent.VK_W){
+				playerdirection=1;
+				
+				
+			}
+			if(key==KeyEvent.VK_S){
+				playerdirection=3;
+				
+			}
+			
+			if(key==KeyEvent.VK_A){
+				playerdirection=2;
+				
+			}
+			if(key==KeyEvent.VK_D){
+				playerdirection=4;
+				
+			}
+		}
+	    @Override
+		
+	    public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	    @Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	    
+	    
+	    //main
 	    public static void main(String[] args) throws InterruptedException 
 {
 	    	// Creates panel object of Snake class
 	    	SnakeGraphics panel = new SnakeGraphics();
 			int death=0;
-			    // Creates a JFrame object
+			    
+			while(death==0)
+				{  
+			// Creates a JFrame object
 	            JFrame frame = new JFrame("Snake");
 	            // Sets the size of the window
 	            frame.setSize(506, 532);
+	         	 
+	            
 	            // Exit application when window is closed
 	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            // Center pane
@@ -268,15 +310,14 @@ public class SnakeGraphics extends JPanel {
 	            // Make frame visible
 	            frame.setVisible(true);
 				
-			while(death==0)
-				{
+		
 				Thread.sleep(1000);
-			death=panel.updateboard();
-			panel.printboard();
-			panel.move();
+				death=panel.updateboard();
+				panel.printboard();
+				panel.move();
 	       
-	    }
-	    }
+				}
+}
 
 	    
 	    
