@@ -56,7 +56,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    public void paintComponent(Graphics g) {
 	    	
 	    	// Declare variables
-	    	int iCountRows, iCountColumns, iAlternate = 0, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
+	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
 	    	
 	        super.paintComponent(g);
 	        
@@ -118,7 +118,8 @@ public class SnakeGraphics extends JPanel implements KeyListener
 		        }
 	        }
 	        	}
-	    	//print out the board array in the console for trouble shooting
+	    
+	    //print out the board array in the console for trouble shooting
 	    public void printboard()
 	    	{
 	    		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
@@ -127,9 +128,11 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			System.out.println();
 	    			for(x=0;x<10;x++)
 	    			{
+	    				//print out the number in that spot
 	    				System.out.print(board[x][y]+" ");
 	    			}
 	    		}
+	    		//go to the next line
 	    		System.out.println();
 	    	}
 	    	
@@ -151,20 +154,24 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			//set the the spots that have snake tails to 1
 	    					board[snaketailx.get(z)][snaketaily.get(z)]=1;
 	    				}
+	    		//set the position with th aplle to 3
 	    		board[applex][appley]=3;
+	    		//if hte player head is over an aplle
 	    		if(board[playerheadx][playerheady]==3)
 	    		{
-	    			
+	    			//add a another tail spot that is equal to the last spot of the exsisting tail
 	    			snaketailx.add(snaketailx.get(snakelength-1));
 	    			snaketaily.add(snaketaily.get(snakelength-1));
-	    			snakelength++;	    			
+	    			//add 1 to the lenght varable
+	    			snakelength++;	
+	    			//generate a new apple
 	    			generateapple();	    				    
 	    		}
 	    		
 	    		
 	    		//set the player head location to 2
 	    		board[playerheadx][playerheady]=2;
-	    		//return the varable death to let main know it died
+	    		//return the varable death to let main know if it has died
 	    		
 	    		
 	    		return death;
@@ -173,16 +180,19 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    	//generate an apple somewhere
 	    public void generateapple()
 	    	{
+	    	//always do al least once
 	    		do
 	    		{
+	    			
 	    			Random dice = new Random();
+	    			//initiailze
 	    			appley = 0;
 	    			applex = 0;
-	    			
+	    			//generate a random number from 0-9
 	    	         	appley = dice.nextInt(10);
 	    			applex = dice.nextInt(10);
 	    					
-	    			
+	    			//keep generateing untill the apple is made in an open place on the board
 	    		}while(board[applex][appley]!=0);
 	    		
 	    		
@@ -193,24 +203,28 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    	//moves the player and their tail
 	    public void move()
 	    	{
-	    		//take in an input of WASD
+	    		
 	    		
 	    		//set z to the last spot of the snake tail array
 	    		z=snakelength-1;
 	    		//while it is 1 or greater
 	    		while(z>0)
 	    		{
-	    			//set the snake tail cords to the next snake tails cords
+	    			//set the snake tail's cords to the next snake tail's cords
 	    			snaketailx.set(z, snaketailx.get(z-1));
 	    			snaketaily.set(z, snaketaily.get(z-1));
 	    			
 	    			//get closer to the head by 1
 	    			z--;
 	    		}
-	    		//check for each of the movement inputs
+	    		//check each player direction, up=1. left=2, down=3, right=4
+	    		//up
 	    		if(playerdirection==1)
 	    		{
-	    			if(playerheady+1<10)
+	    			//for each if first check if the player head will still be on the borad
+	    			//and also check that the head will not be on top of the tail
+	    			//if either of these happen done move and set death to 1
+	    			if(playerheady+1<10&&board[playerheadx][playerheady+1]!=1)
 	    			{			
 	    				playerheady++;
 	    			}
@@ -218,34 +232,40 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    				
 	    				death=1;
 	    		}
+	    		
+	    		//down
 	    		if(playerdirection==3)
 	    		{
-	    			if(playerheady-1>=0)
+	    			if(playerheady-1>=0&&board[playerheadx][playerheady-1]!=1)
 	    			{				
-	    				playerheady--;
-	    		
+	    				playerheady--;    		
 	    			}
 	    			else
 	    				death=1;
 	    		}
+	    		
+	    		//left
 	    		if(playerdirection==2)
 	    		{
-	    			if(playerheadx-1>=0)
+	    			if(playerheadx-1>=0&&board[playerheadx-1][playerheady]!=1)
 	    			{								
 	    			playerheadx--;
 	    			}
 	    			else
 	    				death=1;
 	    		}
+	    		
+	    		//right
 	    		if(playerdirection==4)
 	    		{
-	    			if(playerheadx+1<10)
+	    			if(playerheadx+1<10&&board[playerheadx+1][playerheady]!=1)
 	    			{				
 	    			playerheadx++;		
 	    			}
 	    			else
 	    				death=1;
 	    		}
+	    		//move the first spot of the tail to the new snake head location
 	    		snaketaily.set(0, playerheady);
 	    		snaketailx.set(0, playerheadx);
 	        }
@@ -294,11 +314,11 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    	// Creates panel object of Snake class
 	    	SnakeGraphics panel = new SnakeGraphics();
 			int death=0;
-			    
+			    JFrame frame = new JFrame("Snake");
 			while(death==0)
 				{  
 			// Creates a JFrame object
-	            JFrame frame = new JFrame("Snake");
+	            
 	            // Sets the size of the window
 	            frame.setSize(506, 532);
 	         	 
