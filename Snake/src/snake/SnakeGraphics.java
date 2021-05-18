@@ -331,14 +331,9 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	            frame.setVisible(true);
 				
 		
-				Thread.sleep(1000);
+				Thread.sleep(700);
 				death=panel.updateboard();
-				panel.printboard();
 				panel.move();
-	       
+				panel.repaint();
 				}
-}
-
-	    
-	    
 }
