@@ -86,7 +86,7 @@ public class SnakeGraphics extends JPanel {
 		        }
 		        if (board[iCountColumns][iCountRows] == 3) {
 		        	g.setColor(Color.red);
-		        	g.fillOval(iXLocation, iYLocation, 35, 35);
+		        	g.fillOval(iXLocation + 10, iYLocation + 10, 30, 30);
 		        }
 		        
 		        }
