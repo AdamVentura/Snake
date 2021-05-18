@@ -69,6 +69,7 @@ public class SnakeGraphics extends JPanel {
 		        	else {
 		        	g.setColor(Color.GREEN);
 		        	}
+				// Graphics for snake body
 		        	if (board[iCountColumns][iCountRows]==1)
 		        	{
 		        		g.setColor(Color.blue);
@@ -80,10 +81,13 @@ public class SnakeGraphics extends JPanel {
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
 				
+			 // Graphics for snake head
 		        if (board[iCountColumns][iCountRows] == 2) {
 		        	g.setColor(Color.blue);
 		        	g.fillOval(iXLocation, iYLocation, 50, 50);
 		        }
+			
+			// Graphics for apples
 		        if (board[iCountColumns][iCountRows] == 3) {
 		        	g.setColor(Color.red);
 		        	g.fillOval(iXLocation + 10, iYLocation + 10, 30, 30);
