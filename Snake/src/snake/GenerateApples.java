@@ -1,68 +1,50 @@
-public int[][] CheckApple()
+package src;
+
+import java.awt.event.KeyEvent;
+
+class player {
+	
+	int direction=4;
+    
+    //change the direction that the player is moving
+    public void keyPressed(KeyEvent e)
 	{
-		do
-		{
-			GenerateApples();		
+		int key = e.getKeyCode();
+		
+		if(key==KeyEvent.VK_W){
+			direction=1;
 			
-		}while(board[a][q]!=0);
-		
-		board[a][q] = 3;
-		
-		return board;
-	}
-	
-	
-	
-	public void GenerateApples() {
-		Random dice = new Random();
-		q = 0;
-		a = 0;
-		
-         	q = dice.nextInt(10);
-		a = dice.nextInt(10);
-		
-		//System.out.println(a + " " + q);
-		
-     } 
-     
-     
-     public int updateboard()
-	{
-		//for each
-		for(y=9;y>=0;y--)
-		{
-			for(x=0;x<10;x++)
-			{
-				if(x==a&&y==q)
-				{
-					board[x][y]=3;
-				}
-				else
-				{
-				board[x][y]=0;
-				}
-				
-				for(z=0;z< snaketailx.size(); z++)
-				{
-					board[snaketailx.get(z)][snaketaily.get(z)]=1;
-					
-					
-				}
 			
-				
-			}
 		}
-		for(y=9;y>=0;y--)
-		{
-			for(x=0;x<10;x++)
-			{
-		if(playerheadx==x&&playerheady==y)
-				{
-					board[x][y]=2;
-				}
-		
-		
-			}
+		if(key==KeyEvent.VK_S){
+			direction=3;
+			
 		}
-		return death;
+		
+		if(key==KeyEvent.VK_A){
+			direction=2;
+			
+		}
+		if(key==KeyEvent.VK_D){
+			direction=4;
+			
+		}
 	}
+    
+
+    public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+    public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    public int getdirection()
+    {
+    	return direction;
+    }
+    
+}
+
