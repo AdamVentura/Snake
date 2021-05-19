@@ -13,7 +13,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 {
 
 	    private static final long serialVersionUID = 7148504528835036003L;
-	    
+	  
 	    private int board[][];
 		private int snakelength,playerheadx, playerheady, death,applex, appley, playerdirection;
 		private char moveinput;
@@ -57,11 +57,11 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    	
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
-	    	
+	    	//at the start of the method repaint the window 
 	        super.paintComponent(g);
 	        
 	        // Use for loop to print tiles
-	        for (iCountRows = 0; iCountRows <= 9; iCountRows += 1) {
+	        for (iCountRows = 9; iCountRows >=0 ; iCountRows -- ) {
 	        	// Multiply the count by 50 to determine coordinates for each row
 		        iXLocation = iCountRows * 50;
 		        iYLocation = iCountRows * 50;
@@ -217,9 +217,9 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			//get closer to the head by 1
 	    			z--;
 	    		}
-	    		//check each player direction, up=1. left=2, down=3, right=4
+	    		//check each player direction, up=3. left=2, down=1, right=4
 	    		//up
-	    		if(playerdirection==1)
+	    		if(playerdirection==3)
 	    		{
 	    			//for each if first check if the player head will still be on the borad
 	    			//and also check that the head will not be on top of the tail
@@ -234,7 +234,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    		}
 	    		
 	    		//down
-	    		if(playerdirection==3)
+	    		if(playerdirection==1)
 	    		{
 	    			if(playerheady-1>=0&&board[playerheadx][playerheady-1]!=1)
 	    			{				
@@ -270,11 +270,19 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    		snaketailx.set(0, playerheadx);
 	        }
 
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    //change the direction that the player is moving
-	    @Override
-		public void keyPressed(KeyEvent arg0)
+	    public void keyPressed(KeyEvent e)
 		{
-			int key = arg0.getKeyCode();
+			int key = e.getKeyCode();
 			
 			if(key==KeyEvent.VK_W){
 				playerdirection=1;
@@ -295,14 +303,11 @@ public class SnakeGraphics extends JPanel implements KeyListener
 				
 			}
 		}
-	    @Override
-		
 	    public void keyReleased(KeyEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
-	    @Override
-		public void keyTyped(KeyEvent arg0) {
+	    public void keyTyped(KeyEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -331,9 +336,13 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	            frame.setVisible(true);
 				
 		
-				Thread.sleep(700);
+				Thread.sleep(900);
 				death=panel.updateboard();
 				panel.move();
 				panel.repaint();
 				}
+}
+
+	    
+	    
 }
