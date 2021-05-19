@@ -1,30 +1,52 @@
-package snake;
+package src;
+
+import java.awt.BorderLayout;
 import java.util.*;
-class SnakeMain {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SnakeLogic sl=new SnakeLogic();
-		
-		
-		int death=0;
-		Scanner reader=new Scanner(System.in);
-			
-		while(death==0)
-			{
-		
-		sl.printboard();
-		sl.move();
-		death=sl.updateboard();
-		
+import javax.swing.JFrame;
 
+public class SnakeMain extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) throws InterruptedException {
+		// Creates a JFrame object
+		SnakeMain frame = new SnakeMain();
+		
+		int death = 0;
 		
 		
-			}
-			
+        
 		
-		
-		
+        // Creates panel object of Snake class
+    	SnakeGraphics panel = new SnakeGraphics();
+        // Center pane
+        frame.getContentPane().add(panel, BorderLayout.CENTER);
+        // Make frame visible
+        frame.setVisible(true);
+       
+       
+        
+        panel.DoAll();
+        
+		}
+	
+	public SnakeMain() {
+		// Sets the size of the window
+        setSize(506, 532);
+        setResizable(false);
+     	 
+        // Exit application when window is closed
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 	}
-
+				
+			
+			
+			
 }
+	
+	
