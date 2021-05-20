@@ -1,34 +1,25 @@
 package src;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.*;
 import java.util.*;
 
 
-
-public class SnakeGraphics extends JPanel implements KeyListener
+public class SnakeGraphics extends JPanel 
 {
-
-	    private static final long serialVersionUID = 7148504528835036003L;
-	    
+	    private static final long serialVersionUID = 1L;	    
 	    private int board[][];
-		private int snakelength,playerheadx, playerheady, death,applex, appley, playerdirection;
-		private char moveinput;
-		private int x, y, z, q, a;
-		
-		
-		
-		ArrayList<Integer> snaketailx=new <Integer>ArrayList();
-		ArrayList<Integer> snaketaily=new <Integer>ArrayList();
-		
-
-		
+		private int snakelength,playerheadx, playerheady, death,applex, appley;
+		private int x, y, z;
+		player player=new player();
+		ArrayList<Integer> snaketailx=new <Integer>ArrayList<Integer>();
+		ArrayList<Integer> snaketaily=new <Integer>ArrayList<Integer>();	
 		//constructor
 		 public SnakeGraphics() throws InterruptedException
 	    	{
+			 addKeyListener(player);
+			 setFocusable(true);
+		     requestFocusInWindow();
 	    		board=new int [10][10];
 	    		playerheadx=3;
 	    		playerheady=5;
@@ -42,12 +33,10 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    		snaketaily.add(5);
 	    		snaketailx.add(1);
 	    		snaketaily.add(5);
-	    		
 	    		//make the original apple location
 	    		applex=7;
 	    		appley=5;
-	    		//start the player moving right
-	    		playerdirection=4;
+	    		//start the player moving right	    		
 	    		}
 		 
 		 public void DoAll() throws InterruptedException {
@@ -65,7 +54,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    public void paintComponent(Graphics g) {
 	    	
 	    	// Declare variables
-	    	int iCountRows, iCountColumns, iAlternate = 0, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
+	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
 	    	
 	        super.paintComponent(g);
 	        
@@ -198,7 +187,6 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    	}
 	    	
 	    	
-	    	
 	    	//moves the player and their tail
 	    public void move()
 	    	{
@@ -217,7 +205,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			z--;
 	    		}
 	    		//check for each of the movement inputs
-	    		if(playerdirection==1)
+	    		if(player.getdirection()==1)
 	    		{
 	    			if(playerheady+1<10)
 	    			{			
@@ -227,7 +215,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    				
 	    				death=1;
 	    		}
-	    		if(playerdirection==3)
+	    		if(player.getdirection()==3)
 	    		{
 	    			if(playerheady-1>=0)
 	    			{				
@@ -237,7 +225,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			else
 	    				death=1;
 	    		}
-	    		if(playerdirection==2)
+	    		if(player.getdirection()==2)
 	    		{
 	    			if(playerheadx-1>=0)
 	    			{								
@@ -246,7 +234,7 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    			else
 	    				death=1;
 	    		}
-	    		if(playerdirection==4)
+	    		if(player.getdirection()==4)
 	    		{
 	    			if(playerheadx+1<10)
 	    			{				
@@ -259,46 +247,13 @@ public class SnakeGraphics extends JPanel implements KeyListener
 	    		snaketailx.set(0, playerheadx);
 	        }
 
-	    //change the direction that the player is moving
-	    @Override
-		public void keyPressed(KeyEvent arg0)
-		{
-			int key = arg0.getKeyCode();
-			
-			if(key==KeyEvent.VK_W){
-				playerdirection=1;
-				
-				
-			}
-			if(key==KeyEvent.VK_S){
-				playerdirection=3;
-				
-			}
-			
-			if(key==KeyEvent.VK_A){
-				playerdirection=2;
-				
-			}
-			if(key==KeyEvent.VK_D){
-				playerdirection=4;
-				
-			}
-		}
-	    @Override
+	  
+	   
 		
-	    public void keyReleased(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-	    @Override
-		public void keyTyped(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
 	    
 	    
 	   
-{
+
 			
-			}
+			
 }
