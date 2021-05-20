@@ -10,25 +10,20 @@ public class player implements KeyListener{
     //change the direction that the player is moving
     public void keyPressed(KeyEvent e)
 	{
+    	
 		int key = e.getKeyCode();
-		System.out.println("Helllo2");
-		if(key==KeyEvent.VK_SPACE){
+		
+		if(key==KeyEvent.VK_W){
 			direction=1;
-			System.out.println("Hello");
-			
 		}
 		if(key==KeyEvent.VK_S){
 			direction=3;
-			
 		}
-		
 		if(key==KeyEvent.VK_A){
 			direction=2;
-			
 		}
 		if(key==KeyEvent.VK_D){
 			direction=4;
-			
 		}
 		
 	}
@@ -49,3 +44,4 @@ public class player implements KeyListener{
     }
     
 }
+
