@@ -31,6 +31,24 @@ public class player implements KeyListener{
 			direction=4;
 		}
 		
+		//if they pressed the up key and the wont do a 180 change the direction to up
+		//if they pressed the up key and the wont do a 180 change the direction to up
+		if(key==KeyEvent.VK_UP&&direction!=1){		
+			direction=3;
+			}
+		//is they pressed down and it wont be a 180 turn change the direction to down
+		if(key==KeyEvent.VK_DOWN&&direction!=3){
+			direction=1;
+			}
+		//change to left
+		if(key==KeyEvent.VK_LEFT&&direction!=4){
+			direction=2;
+			}
+		//change to right
+		if(key==KeyEvent.VK_RIGHT&&direction!=2){
+			direction=4;
+			}
+		
 	}
     
 //no used but is need for the interface
