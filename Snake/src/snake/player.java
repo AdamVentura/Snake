@@ -4,46 +4,36 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class player implements KeyListener{
-	
+	//start the player moving right
 	int direction=4;
     
     //change the direction that the player is moving
     public void keyPressed(KeyEvent e)
 	{
-    	// Get the key that the player pressed
+    	//set key to the inputed code from the letters pressed
 		int key = e.getKeyCode();
 		
-		// For the keys W, A, S, and D
-		if(key==KeyEvent.VK_W){
+		//if they pressed w and the wont do a 180 change the direction to up
+		if(key==KeyEvent.VK_W&&direction!=1){
+			
 			direction=3;
 		}
-		if(key==KeyEvent.VK_S){
+		//is they pressed s and it wont be a 180 turn change the direction to down
+		if(key==KeyEvent.VK_S&&direction!=3){
 			direction=1;
 		}
-		if(key==KeyEvent.VK_A){
+		//change to left
+		if(key==KeyEvent.VK_A&&direction!=4){
 			direction=2;
 		}
-		if(key==KeyEvent.VK_D){
-			direction=4;
-		}
-		
-		// For the arrow keys
-		if(key==KeyEvent.VK_UP){
-			direction=3;
-		}
-		if(key==KeyEvent.VK_DOWN){
-			direction=1;
-		}
-		if(key==KeyEvent.VK_LEFT){
-			direction=2;
-		}
-		if(key==KeyEvent.VK_RIGHT){
+		//change to right
+		if(key==KeyEvent.VK_D&&direction!=2){
 			direction=4;
 		}
 		
 	}
     
-
+//no used but is need for the interface
     public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -52,11 +42,10 @@ public class player implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-    
+    //methed that returns the diretcion
     public int getdirection()
     {
     	return direction;
     }
     
 }
-
