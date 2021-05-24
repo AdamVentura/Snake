@@ -11,22 +11,28 @@ public class SnakeGraphics extends JPanel
 	    private int board[][];
 		private int snakelength,playerheadx, playerheady, death,applex, appley;
 		private int x, y, z;
-		player player=new player();
-		ArrayList<Integer> snaketailx=new <Integer>ArrayList<Integer>();
+		//make instance of the keylistener class
+		player player=new player();		
+		ArrayList<Integer> snaketailx=new <Integer>ArrayList<Integer>();		
 		ArrayList<Integer> snaketaily=new <Integer>ArrayList<Integer>();	
+		
 		//constructor
 		 public SnakeGraphics() throws InterruptedException
 	    	{
+			 //add these to make the keylistener work
 			 addKeyListener(player);
 			 setFocusable(true);
 		     requestFocusInWindow();
+		     //make the array 10 by 10 for the board
 	    		board=new int [10][10];
+	    		//set the starting spot for th player head
 	    		playerheadx=3;
 	    		playerheady=5;
+	    		//make death start at 0[alive]
 	    		death=0;
 	    		//starting snake length
 	    		snakelength=3;
-	    		//make the original tail of the snake
+	    		//make the original tail of the snake	    		
 	    		snaketailx.add(3);
 	    		snaketaily.add(5);
 	    		snaketailx.add(2);
@@ -36,21 +42,28 @@ public class SnakeGraphics extends JPanel
 	    		//make the original apple location
 	    		applex=7;
 	    		appley=5;
-	    		//start the player moving right	    		
+	    		    		
 	    		}
 		 
-		 public void DoAll() throws InterruptedException {
-			while (death==0) {
-	    		Thread.sleep(500);
-		    	death = updateboard();
-		    	printboard();
+		 //method that will run the entire game
+		 public void DoAll() throws InterruptedException 
+		 {
+			//while the player is still alive
+			 while (death==0) {	    			    	
+		    	//move the snake
 		    	move();
+		    	//repaint the frame
 		    	repaint();
-			}
+		    	//wait for .3 of a second in between frames		    	
+		    	death = updateboard();
+		    	//update the board and return the death varable to tell if th player has died
+		    	Thread.sleep(300);
+		    	
+			 }
 		 }
 		
 
-	    // Runs whenever something needs to be painted, does all of the graphics
+	    // Paints makes the garphics
 	    public void paintComponent(Graphics g) {
 	    	
 	    	// Declare variables
@@ -59,11 +72,11 @@ public class SnakeGraphics extends JPanel
 	        super.paintComponent(g);
 	        
 	        // Use for loop to print tiles
-	        for (iCountRows = 0; iCountRows <= 9; iCountRows += 1) {
+	        for (iCountRows = 9; iCountRows >=0; iCountRows --) {
 	        	// Multiply the count by 50 to determine coordinates for each row
 		        iXLocation = iCountRows * 50;
 		        iYLocation = iCountRows * 50;
-		        for(iCountColumns = 0; iCountColumns <= 9; iCountColumns += 1) {
+		        for(iCountColumns = 9; iCountColumns >=0; iCountColumns --) {
 		        	// Use a nested for loop to modify the x to print each row
 		        	iXLocation = iCountColumns * 50;
 		        	
@@ -116,10 +129,12 @@ public class SnakeGraphics extends JPanel
 		        }
 	        }
 	        	}
-	    	//print out the board array in the console for trouble shooting
+	    	
+	    
+	    //print out the board array in the console for trouble shooting
 	    public void printboard()
 	    	{
-	    		//make the for loops looke like this so that x and y can ack like a standard cordinate plain.
+	    		//make the for loops looke like this so that x and y can look like a standard coordinate plain.
 	    		for(y=9;y>=0;y--)
 	    		{
 	    			System.out.println();
@@ -131,7 +146,7 @@ public class SnakeGraphics extends JPanel
 	    		System.out.println();
 	    	}
 	    	
-	    	//update the board array
+	    //update the board array
 	    public int updateboard()
 	    	{
 	    		//for each spot
@@ -143,44 +158,59 @@ public class SnakeGraphics extends JPanel
 	    				board[x][y]=0;	
 	    			}
 	    		}
+	    		
 	    		//for each the entire length of the snake
 	    		for(z=0;z< snaketailx.size(); z++)
 	    				{
 	    			//set the the spots that have snake tails to 1
 	    					board[snaketailx.get(z)][snaketaily.get(z)]=1;
+	    					
 	    				}
+	    		
+	    		//for all of the snake tail other than the part that is directly under the head
+	    		//check if it is the same location as the head
+	    		//if so you died
+	    		for(z=1;z< snaketailx.size(); z++)
+	    		{
+	    		if(snaketailx.get(z)==playerheadx&&snaketaily.get(z)==playerheady)
+	    					death=1;
+	    		}
+	    		
+	    		//put the apple on the board
 	    		board[applex][appley]=3;
+	    		//when the head hits and apple
 	    		if(board[playerheadx][playerheady]==3)
 	    		{
-	    			
+	    			//add another spot to the end of the snake tail
+	    			//make it in the same locations as the very end of the tail
 	    			snaketailx.add(snaketailx.get(snakelength-1));
 	    			snaketaily.add(snaketaily.get(snakelength-1));
-	    			snakelength++;	    			
+	    			//add 1 to the lenght varable
+	    			snakelength++;	
+	    			//generate a new apple
 	    			generateapple();	    				    
 	    		}
 	    		
-	    		
 	    		//set the player head location to 2
 	    		board[playerheadx][playerheady]=2;
-	    		//return the variable death to let main know it died
 	    		
-	    		
+	    		//return the variable death to let main know it died	    		    		
 	    		return death;
 	    	}
 
 	    	//generate an apple somewhere
 	    public void generateapple()
 	    	{
+	    	//always run once
 	    		do
 	    		{
+	    			//make a new random instance
 	    			Random dice = new Random();
-	    			appley = 0;
-	    			applex = 0;
-	    			
-	    	         	appley = dice.nextInt(10);
+	    			//set the apple to a random location on the board
+	    			appley = dice.nextInt(10);
 	    			applex = dice.nextInt(10);
 	    					
-	    			
+	    			//repeat if the apple isnt in an empty space
 	    		}while(board[applex][appley]!=0);
 	    		
 	    		
@@ -190,8 +220,6 @@ public class SnakeGraphics extends JPanel
 	    	//moves the player and their tail
 	    public void move()
 	    	{
-	    		//take in an input of WASD
-	    		
 	    		//set z to the last spot of the snake tail array
 	    		z=snakelength-1;
 	    		//while it is 1 or greater
@@ -204,27 +232,31 @@ public class SnakeGraphics extends JPanel
 	    			//get closer to the head by 1
 	    			z--;
 	    		}
-	    		//check for each of the movement inputs
+	    		
+	    		//check for each direction
+	    		//if the direction is 1 move up
 	    		if(player.getdirection()==1)
 	    		{
+	    			//if it will be on the board move
 	    			if(playerheady+1<10)
 	    			{			
 	    				playerheady++;
 	    			}
+	    			//if it will be off the board th eplayer died
 	    			else
-	    				
 	    				death=1;
 	    		}
+	    		//does everything the same but moves down
 	    		if(player.getdirection()==3)
 	    		{
 	    			if(playerheady-1>=0)
 	    			{				
 	    				playerheady--;
-	    		
 	    			}
 	    			else
 	    				death=1;
 	    		}
+	    		//left
 	    		if(player.getdirection()==2)
 	    		{
 	    			if(playerheadx-1>=0)
@@ -234,6 +266,7 @@ public class SnakeGraphics extends JPanel
 	    			else
 	    				death=1;
 	    		}
+	    		//right
 	    		if(player.getdirection()==4)
 	    		{
 	    			if(playerheadx+1<10)
@@ -243,17 +276,9 @@ public class SnakeGraphics extends JPanel
 	    			else
 	    				death=1;
 	    		}
+	    	
+	    		//move the closes part of the snake tail to where the new head is
 	    		snaketaily.set(0, playerheady);
 	    		snaketailx.set(0, playerheadx);
-	        }
-
-	  
-	   
-		
-	    
-	    
-	   
-
-			
-			
+	        }			
 }
