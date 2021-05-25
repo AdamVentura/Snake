@@ -25,7 +25,7 @@ public class SnakeMain extends JFrame {
 	
 	public SnakeMain() {
 		// Sets the size of the window
-        setSize(516, 539);
+        setSize(516, 680);
         setResizable(false);
      	
         // Exit application when window is closed
@@ -36,6 +36,5 @@ public class SnakeMain extends JFrame {
 			
 			
 			
-}
 }
 	
