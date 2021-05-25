@@ -10,6 +10,7 @@ public class SnakeGraphics extends JPanel
 	    private static final long serialVersionUID = 1L;	    
 	    private int board[][];
 		private int snakelength,playerheadx, playerheady, death,applex, appley;
+		String snakelengthstring;
 		private int x, y, z;
 		//make instance of the keylistener class
 		player player=new player();		
@@ -49,6 +50,7 @@ public class SnakeGraphics extends JPanel
 		 public void DoAll() throws InterruptedException 
 		 {
 			//while the player is still alive
+			 Thread.sleep(500);
 			 while (death==0) {	    			    	
 		    	//move the snake
 		    	move();
@@ -57,13 +59,13 @@ public class SnakeGraphics extends JPanel
 		    	//wait for .3 of a second in between frames		    	
 		    	death = updateboard();
 		    	//update the board and return the death varable to tell if th player has died
-		    	Thread.sleep(300);
+		    	Thread.sleep(200);
 		    	
 			 }
 		 }
 		
 
-	    // Paints makes the garphics
+	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
 	    	
 	    	// Declare variables
@@ -127,8 +129,26 @@ public class SnakeGraphics extends JPanel
 		        }
 		        
 		        }
+		       
 	        }
-	        	}
+	        g.setColor(Color.green.darker().darker());
+	        g.fillRect(0, 498, 516, 50);
+	      
+	        	
+	        
+	        
+	        	snakelengthstring=String.valueOf(snakelength);
+	        	
+	        	        Graphics2D g2 = (Graphics2D)g;
+	        	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	        	        RenderingHints.VALUE_ANTIALIAS_ON);
+	        	        g2.setColor(Color.white);;
+	        	        g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+	        	        g2.drawString(snakelengthstring,240,538); 
+	        	       	        	 	        	           
+	        	    
+	           
+	   }
 	    	
 	    
 	    //print out the board array in the console for trouble shooting
@@ -210,7 +230,7 @@ public class SnakeGraphics extends JPanel
 	    			appley = dice.nextInt(10);
 	    			applex = dice.nextInt(10);
 	    					
-	    			//repeat if the apple isnt in an empty space
+	    			//repeat if the apple isn't in an empty space
 	    		}while(board[applex][appley]!=0);
 	    		
 	    		
