@@ -67,11 +67,12 @@ public class SnakeGraphics extends JPanel
 
 	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
-	    	
+	    	//call the methods to paint the frame
 	    	updateGraphics(g);
 	        setScore(g); 
 	   }
-	    
+	
+	    //updates the graphics of the board
 	    public void updateGraphics(Graphics g) {
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
@@ -140,17 +141,22 @@ public class SnakeGraphics extends JPanel
 	        }
 	    }
 	    
+	    //does everything to print out the score at the bottom of the screen
 	    public void setScore(Graphics g) {
 	    	
+	    	//set the color of the rectangke to a dark dark green
 	        g.setColor(Color.green.darker().darker());
+	        //fill that area with the color
 	        g.fillRect(0, 498, 516, 50);
-	      
+	      //set the length to a string varable
 	        sSnakeLengthString = String.valueOf(iSnakeLength);
 	        	
-	         Graphics2D g2 = (Graphics2D)g;
-	         g2.setColor(Color.white);
+	        //set the color of the text to white	         
+	         g.setColor(Color.white);
+	         //set the front and size
 	         g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-	         g2.drawString(sSnakeLengthString,240,538);
+	         //print out the score
+	         g.drawString(sSnakeLengthString,240,538);
 	         }
 	        
 	    
@@ -166,6 +172,7 @@ public class SnakeGraphics extends JPanel
 	    				System.out.print(board[x][y]+" ");
 	    			}
 	    		}
+	    		//go to the next line
 	    		System.out.println();
 	    	}
 	    	
@@ -248,7 +255,7 @@ public class SnakeGraphics extends JPanel
 	    		//while it is 1 or greater
 	    		while(z>0)
 	    		{
-	    			//set the snake tail cords to the next snake tails cords
+	    			//set the snake tail cordinates to the next snake tails cordinates
 	    			SnakeTailX.set(z, SnakeTailX.get(z-1));
 	    			SnakeTailY.set(z, SnakeTailY.get(z-1));
 	    			
