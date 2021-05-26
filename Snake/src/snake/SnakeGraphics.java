@@ -60,19 +60,33 @@ public class SnakeGraphics extends JPanel
 		    	iDeath = updateBoard();
 		    	//update the board and return the death variable to tell if the player has died
 		    	Thread.sleep(200);
-		    	
 			 }
 		 }
 		
 
 	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
-	    	//call the methods to paint the frame
+	    	
 	    	updateGraphics(g);
-	        setScore(g); 
+	        setScore(g);
+	        if (iSnakeLength == 100) {
+	        	displayWin(g);
+	        }
+	        else if (iDeath == 1) {
+	        	gameOver(g);
+	        }
 	   }
-	
-	    //updates the graphics of the board
+	    public void displayWin(Graphics g) {
+	    	Toolkit t=Toolkit.getDefaultToolkit();  
+	        Image i=t.getImage("Win.png");  
+	        g.drawImage(i, 120,100,this);
+	    }
+	    
+	    public void gameOver(Graphics g) {
+	    	Toolkit t=Toolkit.getDefaultToolkit();  
+	        Image i=t.getImage("Game_Over.png");  
+	        g.drawImage(i, 120,100,this);
+	    }
 	    public void updateGraphics(Graphics g) {
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
@@ -141,24 +155,20 @@ public class SnakeGraphics extends JPanel
 	        }
 	    }
 	    
-	    //does everything to print out the score at the bottom of the screen
 	    public void setScore(Graphics g) {
 	    	
-	    	//set the color of the rectangke to a dark dark green
 	        g.setColor(Color.green.darker().darker());
-	        //fill that area with the color
 	        g.fillRect(0, 498, 516, 50);
-	      //set the length to a string varable
+	      
 	        sSnakeLengthString = String.valueOf(iSnakeLength);
 	        	
-	        //set the color of the text to white	         
-	         g.setColor(Color.white);
-	         //set the front and size
+	         Graphics2D g2 = (Graphics2D)g;
+	         g2.setColor(Color.white);
 	         g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-	         //print out the score
-	         g.drawString(sSnakeLengthString,240,538);
+	         g2.drawString(sSnakeLengthString,240,538);
 	         }
 	        
+	    
 	    
 	    //print out the board array in the console for trouble shooting
 	    public void printBoard()
@@ -172,7 +182,6 @@ public class SnakeGraphics extends JPanel
 	    				System.out.print(board[x][y]+" ");
 	    			}
 	    		}
-	    		//go to the next line
 	    		System.out.println();
 	    	}
 	    	
@@ -255,7 +264,7 @@ public class SnakeGraphics extends JPanel
 	    		//while it is 1 or greater
 	    		while(z>0)
 	    		{
-	    			//set the snake tail cordinates to the next snake tails cordinates
+	    			//set the snake tail cords to the next snake tails cords
 	    			SnakeTailX.set(z, SnakeTailX.get(z-1));
 	    			SnakeTailY.set(z, SnakeTailY.get(z-1));
 	    			
