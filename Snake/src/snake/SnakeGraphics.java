@@ -9,55 +9,55 @@ public class SnakeGraphics extends JPanel
 {
 	    private static final long serialVersionUID = 1L;	    
 	    private int board[][];
-		private int snakelength,playerheadx, playerheady, death,applex, appley;
-		String snakelengthstring;
+		private int iSnakeLength, iPlayerHeadX, iPlayerHeadY, iDeath, iAppleX, iAppleY;
+		String sSnakeLengthString;
 		private int x, y, z;
-		//make instance of the keylistener class
+		//make instance of the Key Listener class
 		player player=new player();		
-		ArrayList<Integer> snaketailx=new <Integer>ArrayList<Integer>();		
-		ArrayList<Integer> snaketaily=new <Integer>ArrayList<Integer>();	
+		ArrayList<Integer> SnakeTailX=new <Integer>ArrayList<Integer>();		
+		ArrayList<Integer> SnakeTailY=new <Integer>ArrayList<Integer>();	
 		
 		//constructor
 		 public SnakeGraphics() throws InterruptedException
 	    	{
-			 //add these to make the keylistener work
+			 //add these to make the Key Listener work
 			 addKeyListener(player);
 			 setFocusable(true);
 		     requestFocusInWindow();
 		     //make the array 10 by 10 for the board
 	    		board=new int [10][10];
 	    		//set the starting spot for the player head
-	    		playerheadx=3;
-	    		playerheady=5;
+	    		iPlayerHeadX=3;
+	    		iPlayerHeadY=5;
 	    		//make death start at 0[alive]
-	    		death=0;
+	    		iDeath=0;
 	    		//starting snake length
-	    		snakelength=3;
+	    		iSnakeLength=3;
 	    		//make the original tail of the snake	    		
-	    		snaketailx.add(3);
-	    		snaketaily.add(5);
-	    		snaketailx.add(2);
-	    		snaketaily.add(5);
-	    		snaketailx.add(1);
-	    		snaketaily.add(5);
+	    		SnakeTailX.add(3);
+	    		SnakeTailY.add(5);
+	    		SnakeTailX.add(2);
+	    		SnakeTailY.add(5);
+	    		SnakeTailX.add(1);
+	    		SnakeTailY.add(5);
 	    		//make the original apple location
-	    		applex=7;
-	    		appley=5;
+	    		iAppleX=7;
+	    		iAppleY=5;
 	    		    		
 	    		}
 		 
 		 //method that will run the entire game
-		 public void DoAll() throws InterruptedException 
+		 public void doAll() throws InterruptedException 
 		 {
 			//while the player is still alive
 			 Thread.sleep(500);
-			 while (death==0) {	    			    	
+			 while (iDeath==0) {	    			    	
 		    	//move the snake
-		    	move();
+		    	Move();
 		    	//repaint the frame
 		    	repaint();
 		    	//wait for .3 of a second in between frames		    	
-		    	death = updateboard();
+		    	iDeath = updateBoard();
 		    	//update the board and return the death variable to tell if the player has died
 		    	Thread.sleep(200);
 		    	
@@ -68,11 +68,11 @@ public class SnakeGraphics extends JPanel
 	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
 	    	
-	    	UpdateGraphics(g);
-	        SetScore(g); 
+	    	updateGraphics(g);
+	        setScore(g); 
 	   }
 	    
-	    public void UpdateGraphics(Graphics g) {
+	    public void updateGraphics(Graphics g) {
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
 	    	
@@ -140,21 +140,22 @@ public class SnakeGraphics extends JPanel
 	        }
 	    }
 	    
-	    public void SetScore(Graphics g) {
+	    public void setScore(Graphics g) {
 	    	
 	        g.setColor(Color.green.darker().darker());
 	        g.fillRect(0, 498, 516, 50);
 	      
-	        snakelengthstring = String.valueOf(snakelength);
+	        sSnakeLengthString = String.valueOf(iSnakeLength);
 	        	
 	         Graphics2D g2 = (Graphics2D)g;
 	         g2.setColor(Color.white);
 	         g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-	         g2.drawString(snakelengthstring,240,538);
-	        }
+	         g2.drawString(sSnakeLengthString,240,538);
+	         }
+	        
 	    
 	    //print out the board array in the console for trouble shooting
-	    public void printboard()
+	    public void printBoard()
 	    	{
 	    		//make the for loops look like this so that x and y can look like a standard coordinate plain.
 	    		for(y=9;y>=0;y--)
@@ -169,7 +170,7 @@ public class SnakeGraphics extends JPanel
 	    	}
 	    	
 	    //update the board array
-	    public int updateboard()
+	    public int updateBoard()
 	    	{
 	    		//for each spot
 	    		for(y=9;y>=0;y--)
@@ -182,46 +183,46 @@ public class SnakeGraphics extends JPanel
 	    		}
 	    		
 	    		//for each the entire length of the snake
-	    		for(z=0;z< snaketailx.size(); z++)
+	    		for(z=0;z< SnakeTailX.size(); z++)
 	    				{
 	    			//set the the spots that have snake tails to 1
-	    					board[snaketailx.get(z)][snaketaily.get(z)]=1;
+	    					board[SnakeTailX.get(z)][SnakeTailY.get(z)]=1;
 	    					
 	    				}
 	    		
 	    		//for all of the snake tail other than the part that is directly under the head
 	    		//check if it is the same location as the head
 	    		//if so you died
-	    		for(z=1;z< snaketailx.size(); z++)
+	    		for(z=1;z< SnakeTailX.size(); z++)
 	    		{
-	    		if(snaketailx.get(z)==playerheadx&&snaketaily.get(z)==playerheady)
-	    					death=1;
+	    		if(SnakeTailX.get(z)==iPlayerHeadX&&SnakeTailY.get(z)==iPlayerHeadY)
+	    					iDeath=1;
 	    		}
 	    		
 	    		//put the apple on the board
-	    		board[applex][appley]=3;
+	    		board[iAppleX][iAppleY]=3;
 	    		//when the head hits and apple
-	    		if(board[playerheadx][playerheady]==3)
+	    		if(board[iPlayerHeadX][iPlayerHeadY]==3)
 	    		{
 	    			//add another spot to the end of the snake tail
 	    			//make it in the same locations as the very end of the tail
-	    			snaketailx.add(snaketailx.get(snakelength-1));
-	    			snaketaily.add(snaketaily.get(snakelength-1));
+	    			SnakeTailX.add(SnakeTailX.get(iSnakeLength-1));
+	    			SnakeTailY.add(SnakeTailY.get(iSnakeLength-1));
 	    			//add 1 to the length variable
-	    			snakelength++;	
+	    			iSnakeLength++;	
 	    			//generate a new apple
-	    			generateapple();	    				    
+	    			generateApples();	    				    
 	    		}
 	    		
 	    		//set the player head location to 2
-	    		board[playerheadx][playerheady]=2;
+	    		board[iPlayerHeadX][iPlayerHeadY]=2;
 	    		
 	    		//return the variable death to let main know it died	    		    		
-	    		return death;
+	    		return iDeath;
 	    	}
 
 	    	//generate an apple somewhere
-	    public void generateapple()
+	    public void generateApples()
 	    	{
 	    	//always run once
 	    		do
@@ -229,27 +230,27 @@ public class SnakeGraphics extends JPanel
 	    			//make a new random instance
 	    			Random dice = new Random();
 	    			//set the apple to a random location on the board
-	    			appley = dice.nextInt(10);
-	    			applex = dice.nextInt(10);
+	    			iAppleY = dice.nextInt(10);
+	    			iAppleX = dice.nextInt(10);
 	    					
 	    			//repeat if the apple isn't in an empty space
-	    		}while(board[applex][appley]!=0);
+	    		}while(board[iAppleX][iAppleY]!=0);
 	    		
 	    		
 	    	}
 	    	
 	    	
 	    	//moves the player and their tail
-	    public void move()
+	    public void Move()
 	    	{
 	    		//set z to the last spot of the snake tail array
-	    		z=snakelength-1;
+	    		z = iSnakeLength-1;
 	    		//while it is 1 or greater
 	    		while(z>0)
 	    		{
 	    			//set the snake tail cords to the next snake tails cords
-	    			snaketailx.set(z, snaketailx.get(z-1));
-	    			snaketaily.set(z, snaketaily.get(z-1));
+	    			SnakeTailX.set(z, SnakeTailX.get(z-1));
+	    			SnakeTailY.set(z, SnakeTailY.get(z-1));
 	    			
 	    			//get closer to the head by 1
 	    			z--;
@@ -257,50 +258,50 @@ public class SnakeGraphics extends JPanel
 	    		
 	    		//check for each direction
 	    		//if the direction is 1 move up
-	    		if(player.getdirection()==1)
+	    		if(player.GetDirection()==1)
 	    		{
 	    			//if it will be on the board move
-	    			if(playerheady+1<10)
+	    			if(iPlayerHeadY+1<10)
 	    			{			
-	    				playerheady++;
+	    				iPlayerHeadY++;
 	    			}
-	    			//if it will be off the board th eplayer died
+	    			//if it will be off the board the player died
 	    			else
-	    				death=1;
+	    				iDeath = 1;
 	    		}
 	    		//does everything the same but moves down
-	    		if(player.getdirection()==3)
+	    		if(player.GetDirection()==3)
 	    		{
-	    			if(playerheady-1>=0)
+	    			if(iPlayerHeadY-1>=0)
 	    			{				
-	    				playerheady--;
+	    				iPlayerHeadY--;
 	    			}
 	    			else
-	    				death=1;
+	    				iDeath = 1;
 	    		}
 	    		//left
-	    		if(player.getdirection()==2)
+	    		if(player.GetDirection()==2)
 	    		{
-	    			if(playerheadx-1>=0)
+	    			if(iPlayerHeadX-1>=0)
 	    			{								
-	    			playerheadx--;
+	    				iPlayerHeadX--;
 	    			}
 	    			else
-	    				death=1;
+	    				iDeath = 1;
 	    		}
 	    		//right
-	    		if(player.getdirection()==4)
+	    		if(player.GetDirection()==4)
 	    		{
-	    			if(playerheadx+1<10)
+	    			if(iPlayerHeadX +1<10)
 	    			{				
-	    			playerheadx++;		
+	    				iPlayerHeadX++;		
 	    			}
 	    			else
-	    				death=1;
+	    				iDeath = 1;
 	    		}
 	    	
 	    		//move the closes part of the snake tail to where the new head is
-	    		snaketaily.set(0, playerheady);
-	    		snaketailx.set(0, playerheadx);
+	    		SnakeTailY.set(0, iPlayerHeadY);
+	    		SnakeTailX.set(0, iPlayerHeadX);
 	        }			
 }
