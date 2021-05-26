@@ -19,7 +19,7 @@ public class SnakeMain extends JFrame {
         // Make frame visible
         frame.setVisible(true);
         //play the entire game
-        panel.DoAll();  
+        panel.doAll();  
         
 		}
 	
