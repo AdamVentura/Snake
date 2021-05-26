@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class player implements KeyListener{
 	//start the player moving right
-	int direction=4;
+	int iDirection=4;
     
     //change the direction that the player is moving
     public void keyPressed(KeyEvent e)
@@ -14,39 +14,39 @@ public class player implements KeyListener{
 		int key = e.getKeyCode();
 		
 		//if they pressed w and the wont do a 180 change the direction to up
-		if(key==KeyEvent.VK_W&&direction!=1){
+		if(key==KeyEvent.VK_W&&iDirection!=1){
 			
-			direction=3;
+			iDirection=3;
 		}
 		//is they pressed s and it wont be a 180 turn change the direction to down
-		if(key==KeyEvent.VK_S&&direction!=3){
-			direction=1;
+		if(key==KeyEvent.VK_S&&iDirection!=3){
+			iDirection=1;
 		}
 		//change to left
-		if(key==KeyEvent.VK_A&&direction!=4){
-			direction=2;
+		if(key==KeyEvent.VK_A&&iDirection!=4){
+			iDirection=2;
 		}
 		//change to right
-		if(key==KeyEvent.VK_D&&direction!=2){
-			direction=4;
+		if(key==KeyEvent.VK_D&&iDirection!=2){
+			iDirection=4;
 		}
 		
 		//if they pressed the up key and the wont do a 180 change the direction to up
 		//if they pressed the up key and the wont do a 180 change the direction to up
-		if(key==KeyEvent.VK_UP&&direction!=1){		
-			direction=3;
+		if(key==KeyEvent.VK_UP&&iDirection!=1){		
+			iDirection=3;
 			}
 		//is they pressed down and it wont be a 180 turn change the direction to down
-		if(key==KeyEvent.VK_DOWN&&direction!=3){
-			direction=1;
+		if(key==KeyEvent.VK_DOWN&&iDirection!=3){
+			iDirection=1;
 			}
 		//change to left
-		if(key==KeyEvent.VK_LEFT&&direction!=4){
-			direction=2;
+		if(key==KeyEvent.VK_LEFT&&iDirection!=4){
+			iDirection=2;
 			}
 		//change to right
-		if(key==KeyEvent.VK_RIGHT&&direction!=2){
-			direction=4;
+		if(key==KeyEvent.VK_RIGHT&&iDirection!=2){
+			iDirection=4;
 			}
 		
 	}
@@ -61,9 +61,9 @@ public class player implements KeyListener{
 		
 	}
     //methed that returns the diretcion
-    public int getdirection()
+    public int GetDirection()
     {
-    	return direction;
+    	return iDirection;
     }
     
 }
