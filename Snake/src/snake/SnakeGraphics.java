@@ -26,7 +26,7 @@ public class SnakeGraphics extends JPanel
 		     requestFocusInWindow();
 		     //make the array 10 by 10 for the board
 	    		board=new int [10][10];
-	    		//set the starting spot for th player head
+	    		//set the starting spot for the player head
 	    		playerheadx=3;
 	    		playerheady=5;
 	    		//make death start at 0[alive]
@@ -58,7 +58,7 @@ public class SnakeGraphics extends JPanel
 		    	repaint();
 		    	//wait for .3 of a second in between frames		    	
 		    	death = updateboard();
-		    	//update the board and return the death varable to tell if th player has died
+		    	//update the board and return the death variable to tell if the player has died
 		    	Thread.sleep(200);
 		    	
 			 }
@@ -68,6 +68,11 @@ public class SnakeGraphics extends JPanel
 	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
 	    	
+	    	UpdateGraphics(g);
+	        SetScore(g); 
+	   }
+	    
+	    public void UpdateGraphics(Graphics g) {
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
 	    	
@@ -128,33 +133,30 @@ public class SnakeGraphics extends JPanel
 		        	g.fillOval(iXLocation + 10, iYLocation + 10, 30, 30);
 		        }
 		        
+		        
 		        }
+		        
 		       
 	        }
+	    }
+	    
+	    public void SetScore(Graphics g) {
+	    	
 	        g.setColor(Color.green.darker().darker());
 	        g.fillRect(0, 498, 516, 50);
 	      
+	        snakelengthstring = String.valueOf(snakelength);
 	        	
-	        
-	        
-	        	snakelengthstring=String.valueOf(snakelength);
-	        	
-	        	        Graphics2D g2 = (Graphics2D)g;
-	        	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-	        	        RenderingHints.VALUE_ANTIALIAS_ON);
-	        	        g2.setColor(Color.white);;
-	        	        g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-	        	        g2.drawString(snakelengthstring,240,538); 
-	        	       	        	 	        	           
-	        	    
-	           
-	   }
-	    	
+	         Graphics2D g2 = (Graphics2D)g;
+	         g2.setColor(Color.white);
+	         g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+	         g2.drawString(snakelengthstring,240,538);
+	        }
 	    
 	    //print out the board array in the console for trouble shooting
 	    public void printboard()
 	    	{
-	    		//make the for loops looke like this so that x and y can look like a standard coordinate plain.
+	    		//make the for loops look like this so that x and y can look like a standard coordinate plain.
 	    		for(y=9;y>=0;y--)
 	    		{
 	    			System.out.println();
@@ -205,7 +207,7 @@ public class SnakeGraphics extends JPanel
 	    			//make it in the same locations as the very end of the tail
 	    			snaketailx.add(snaketailx.get(snakelength-1));
 	    			snaketaily.add(snaketaily.get(snakelength-1));
-	    			//add 1 to the lenght varable
+	    			//add 1 to the length variable
 	    			snakelength++;	
 	    			//generate a new apple
 	    			generateapple();	    				    
