@@ -31,6 +31,8 @@ public class player implements KeyListener{
 			iDirection=4;
 		}
 		
+		//do everytjing the same but with inputs of the arrow keys
+		
 		//if they pressed the up key and the wont do a 180 change the direction to up
 		//if they pressed the up key and the wont do a 180 change the direction to up
 		if(key==KeyEvent.VK_UP&&iDirection!=1){		
@@ -51,16 +53,17 @@ public class player implements KeyListener{
 		
 	}
     
-//no used but is need for the interface
+//not used but is need for the interface
     public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+    //^^
     public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-    //methed that returns the diretcion
+    //Method that returns the direction
     public int GetDirection()
     {
     	return iDirection;
