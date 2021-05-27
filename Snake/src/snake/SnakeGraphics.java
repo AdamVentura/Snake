@@ -67,16 +67,21 @@ public class SnakeGraphics extends JPanel
 	    // Paints makes the graphics
 	    public void paintComponent(Graphics g) {
 	    	
+	    	// This is the method that is updating the snake location in the panel as well as the apples
 	    	updateGraphics(g);
+	    	// This method continuously updates the score of the game
 	        setScore(g);
+	        
+	        // If a player reaches the maximum score which is 100...
 	        if (iSnakeLength == 100) {
+	        	// Display image that 
 	        	displayWin(g);
 	        }
 	        else if (iDeath == 1) {
 	        	try {
 					gameOver(g);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					// prints error
 					e.printStackTrace();
 				}
 	        }
@@ -139,6 +144,8 @@ public class SnakeGraphics extends JPanel
 		        	else {
 		        	g.setColor(Color.GREEN);
 		        	}
+		        	
+		        	// If this part of the board is where the snake body is then set this tile to blue
 		        	if (board[iCountColumns][iCountRows]==1)
 		        	{
 		        		g.setColor(Color.blue);
@@ -150,10 +157,12 @@ public class SnakeGraphics extends JPanel
 		        // Fills each rectangle with the set color at the specified location
 		        g.fillRect(iXLocation, iYLocation, 50, 50);
 				
+		        // If this part of the board is where the snake head is then create a blue circle
 		        if (board[iCountColumns][iCountRows] == 2) {
 		        	g.setColor(Color.blue);
 		        	g.fillOval(iXLocation, iYLocation, 50, 50);
 		        }
+		        // If this part of the board is where the apple is, add a red circle
 		        if (board[iCountColumns][iCountRows] == 3) {
 		        	g.setColor(Color.red);
 		        	g.fillOval(iXLocation + 10, iYLocation + 10, 30, 30);
@@ -166,23 +175,27 @@ public class SnakeGraphics extends JPanel
 	        }
 	    }
 	    
-	    
+	    // Method to update score
 	    public void setScore(Graphics g) {
-	    	
+	    	// Set color of score background
 	        g.setColor(Color.green.darker().darker());
+	        // Create the dimensions of the rectangle
 	        g.fillRect(0, 498, 516, 50);
 	      
+	        // Get the length of the snake string
 	        sSnakeLengthString = String.valueOf(iSnakeLength);
-	        	
-	         Graphics2D g2 = (Graphics2D)g;
-	         g2.setColor(Color.white);
-	         g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-	         g2.drawString(sSnakeLengthString,240,538);
-	         }
+	        
+	        // Set color of text
+	        g.setColor(Color.white);
+	        // Set the font of text
+	        g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+	        // Draw the length of the string in specified location
+	        g.drawString(sSnakeLengthString,240,538);
+	        }
 	        
 	    
 	    
-	    //print out the board array in the console for trouble shooting
+	    //print out the board array in the console for troubleshooting
 	    public void printBoard()
 	    	{
 	    		//make the for loops look like this so that x and y can look like a standard coordinate plain.
@@ -249,20 +262,20 @@ public class SnakeGraphics extends JPanel
 	    		return iDeath;
 	    	}
 
-	    //generate an apple somewhere
+	    // generate an apple somewhere
 	    public void generateApples()
 	    	{
-	    	//always run once
+	    	// always run once
 	    		do
 	    		{
-	    			//make a new random instance
+	    			// make a new random instance
 	    			Random dice = new Random();
-	    			//set the apple to a random location on the board
+	    			// set the apple to a random location on the board
 	    			iAppleY = dice.nextInt(10);
 	    			iAppleX = dice.nextInt(10);
 	    					
-	    			//repeat if the apple isn't in an empty space
-	    		}while(board[iAppleX][iAppleY]!=0);
+	    		// repeat if the apple isn't in an empty space
+	    		} while(board[iAppleX][iAppleY]!=0);
 	    		
 	    		
 	    	}
