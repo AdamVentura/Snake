@@ -73,20 +73,31 @@ public class SnakeGraphics extends JPanel
 	        	displayWin(g);
 	        }
 	        else if (iDeath == 1) {
-	        	gameOver(g);
+	        	try {
+					gameOver(g);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        }
 	   }
+	    
+
 	    public void displayWin(Graphics g) {
 	    	Toolkit t=Toolkit.getDefaultToolkit();  
 	        Image i=t.getImage("Win.png");  
 	        g.drawImage(i, 120,100,this);
 	    }
 	    
-	    public void gameOver(Graphics g) {
+	    
+	    public void gameOver(Graphics g) throws InterruptedException {
+	    	Thread.sleep(50);
 	    	Toolkit t=Toolkit.getDefaultToolkit();  
 	        Image i=t.getImage("Game_Over.png");  
 	        g.drawImage(i, 120,100,this);
 	    }
+	    
+	    
 	    public void updateGraphics(Graphics g) {
 	    	// Declare variables
 	    	int iCountRows, iCountColumns, iXLocation = 0, iYLocation = 0, iRowEvenOrOdd = 0, iColumnEvenOrOdd, iProduct;
@@ -154,6 +165,7 @@ public class SnakeGraphics extends JPanel
 		       
 	        }
 	    }
+	    
 	    
 	    public void setScore(Graphics g) {
 	    	
@@ -237,7 +249,7 @@ public class SnakeGraphics extends JPanel
 	    		return iDeath;
 	    	}
 
-	    	//generate an apple somewhere
+	    //generate an apple somewhere
 	    public void generateApples()
 	    	{
 	    	//always run once
@@ -256,7 +268,7 @@ public class SnakeGraphics extends JPanel
 	    	}
 	    	
 	    	
-	    	//moves the player and their tail
+	    //moves the player and their tail
 	    public void Move()
 	    	{
 	    		//set z to the last spot of the snake tail array
